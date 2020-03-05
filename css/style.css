@@ -1,0 +1,8 @@
+.list {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.list__item {
+  background-color: #fff;
+}

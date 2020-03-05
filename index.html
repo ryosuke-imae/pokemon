@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>poke-app</title>
+    <link rel="stylesheet" href="./css/reset.css" />
+    <link rel="stylesheet" href="./css/style.css" />
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  </head>
+  <body>
+    <div id="poke-app">
+      <ul class="list">
+        <li class="list__item" v-for="(list,id) in pokeList" :key="id">
+          <div>
+            <img :src="`${imgUrl}${number(list.id)}.png`" :alt="list.name" />
+          </div>
+          <p>図鑑No.{{number(list.id)}}</p>
+          <h3>{{ list.name }}</h3>
+        </li>
+      </ul>
+    </div>
+    <script>
+      new Vue({
+        el: "#poke-app",
+        data: {
+          pokeList: [],
+          imgUrl:
+            "https://raw.githubusercontent.com/fanzeyi/pokemon.json/master/images/"
+        },
+        methods: {
+          number: function(id) {
+            return ("000" + id).slice(-3);
+          }
+        },
+        mounted: function() {
+          axios
+            .get("./pokemon.json")
+            .then(response => (this.pokeList = response.data));
+        }
+      });
+    </script>
+  </body>
+</html>

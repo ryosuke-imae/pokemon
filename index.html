@@ -36,7 +36,9 @@
         },
         mounted: function() {
           axios
-            .get("./pokemon.json")
+            .get(
+              "https://raw.githubusercontent.com/ryosuke-imae/pokemon/master/pokemon.json"
+            )
             .then(response => (this.pokeList = response.data));
         }
       });

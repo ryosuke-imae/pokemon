@@ -13,9 +13,7 @@
     <div id="poke-app">
       <ul class="list">
         <li class="list__item" v-for="(list,id) in pokeList" :key="id">
-          <div>
-            <img :src="`${imgUrl}${number(list.id)}.png`" :alt="list.name" />
-          </div>
+          <img :src="`${imgUrl}${number(list.id)}.png`" :alt="list.name" />
           <p>図鑑No.{{number(list.id)}}</p>
           <h3>{{ list.name }}</h3>
         </li>
@@ -27,7 +25,7 @@
         data: {
           pokeList: [],
           imgUrl:
-            "https://raw.githubusercontent.com/fanzeyi/pokemon.json/master/images/"
+            "https://raw.githubusercontent.com/ryosuke-imae/pokemon/master/img/"
         },
         methods: {
           number: function(id) {

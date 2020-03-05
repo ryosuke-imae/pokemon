@@ -1,7 +1,14 @@
 .list {
   display: flex;
   flex-wrap: wrap;
+  flex-direction: row;
   &__item {
     background-color: #fff;
+    width: calc((100% / 4) - 12px);
+    padding: 30px;
+    margin: 6px;
+    img {
+      width: 100%;
+    }
   }
 }

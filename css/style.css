@@ -1,8 +1,16 @@
 .list {
   display: flex;
   flex-wrap: wrap;
+  flex-direction: row;
 }
 
 .list__item {
   background-color: #fff;
+  width: calc((100% / 4) - 12px);
+  padding: 30px;
+  margin: 6px;
+}
+
+.list__item img {
+  width: 100%;
 }

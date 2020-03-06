@@ -11,8 +11,26 @@
   </head>
   <body>
     <div id="poke-app">
+      <div class="modal" v-if="showModal" @close="showModel = false">
+        <div class="modal__wrap">
+          <p>図鑑No.{{number(selectNumber.id)}}</p>
+          <h2>{{selectNumber.name}}</h2>
+          <p>{{selectNumber.classification}}</p>
+          <img
+            :src="`${imgUrl}${number(selectNumber.id)}.png`"
+            :alt="selectNumber.name"
+          />
+          <button @click="showModal = false">閉じる</button>
+        </div>
+      </div>
+      <h1>TITLE</h1>
       <ul class="list">
-        <li class="list__item" v-for="(list,id) in pokeList" :key="id">
+        <li
+          class="list__item"
+          @click="showModal = true; select(id)"
+          v-for="(list,id) in pokeList"
+          :key="id"
+        >
           <img :src="`${imgUrl}${number(list.id)}.png`" :alt="list.name" />
           <p>図鑑No.{{number(list.id)}}</p>
           <h3>{{ list.name }}</h3>
@@ -23,13 +41,18 @@
       new Vue({
         el: "#poke-app",
         data: {
+          showModal: false,
           pokeList: [],
+          selectNumber: "",
           imgUrl:
             "https://raw.githubusercontent.com/ryosuke-imae/pokemon/master/img/"
         },
         methods: {
           number: function(id) {
             return ("000" + id).slice(-3);
+          },
+          select: function(index) {
+            this.selectNumber = this.pokeList[index];
           }
         },
         mounted: function() {

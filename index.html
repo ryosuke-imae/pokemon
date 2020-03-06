@@ -10,20 +10,43 @@
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
   </head>
   <body>
-    <div id="poke-app">
+    <div class="wrapper" id="poke-app">
       <div class="modal" v-if="showModal" @close="showModel = false">
         <div class="modal__wrap">
-          <p>図鑑No.{{number(selectNumber.id)}}</p>
-          <h2>{{selectNumber.name}}</h2>
-          <p>{{selectNumber.classification}}</p>
-          <img
-            :src="`${imgUrl}${number(selectNumber.id)}.png`"
-            :alt="selectNumber.name"
-          />
-          <button @click="showModal = false">閉じる</button>
+          <div class="modal__wrap__title">
+            <p>図鑑No.{{number(selectNumber.id)}}</p>
+            <h2>{{selectNumber.name}}</h2>
+          </div>
+          <div class="modal__wrap__content">
+            <img
+              :src="`${imgUrl}${number(selectNumber.id)}.png`"
+              :alt="selectNumber.name"
+            />
+            <ul class="details">
+              <li>
+                <dl>
+                  <dt>分類</dt>
+                  <dd>{{selectNumber.classification}}</dd>
+                </dl>
+              </li>
+              <li>
+                <dl>
+                  <dt>高さ</dt>
+                  <dd>{{selectNumber.height}}</dd>
+                </dl>
+              </li>
+              <li>
+                <dl>
+                  <dt>重さ</dt>
+                  <dd>{{selectNumber.weight}}</dd>
+                </dl>
+              </li>
+            </ul>
+          </div>
+          <div class="modal__wrap--close" @click="showModal = false"></div>
         </div>
       </div>
-      <h1>TITLE</h1>
+      <h1>Pokedex</h1>
       <ul class="list">
         <li
           class="list__item"
@@ -41,6 +64,7 @@
       new Vue({
         el: "#poke-app",
         data: {
+          keyword: "",
           showModal: false,
           pokeList: [],
           selectNumber: "",

@@ -1,66 +1,76 @@
 .wrapper {
-  > h1 {
+  h1 {
     color: #fff;
     font-size: 24px;
     text-align: center;
     padding: 14px 0 13px;
   }
+  .slow {
+    animation-name: fadein;
+    animation-duration: 0.5s;
+  }
 }
-
-.modal {
+.overlay {
   background-color: rgba(0, 0, 0, 0.8);
   width: 100%;
   height: 100%;
   position: fixed;
-  &__wrap {
+  animation-name: fadein;
+  animation-duration: 1s;
+}
+.modal {
+  width: 60%;
+  max-width: 640px;
+  max-height: 500px;
+  padding: 21px;
+  border-radius: 6px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  &--close {
     background-color: #fff;
-    width: 60%;
-    max-width: 640px;
-    padding: 21px;
-    border-radius: 6px;
+    font-size: 24px;
+    width: 1.4em;
+    height: 1.4em;
+    border: 0.1em solid #39a9d6;
+    border-radius: 100%;
     position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    &--close {
-      background-color: #fff;
-      font-size: 24px;
-      position: relative;
-      width: 1.4em;
-      height: 1.4em;
-      border: 0.1em solid #39a9d6;
-      border-radius: 100%;
+    top: 10px;
+    right: 10px;
+    z-index: 9999;
+    &:before {
       position: absolute;
-      top: -10px;
-      right: -10px;
-      &:before {
-        position: absolute;
-        top: 0.1em;
-        left: 0.5em;
-        width: 0.2em;
-        height: 1em;
-        content: "";
-        background-color: #39a9d6;
-        transform: rotate(45deg);
-      }
-      &:after {
-        position: absolute;
-        top: 0.5em;
-        left: 0.1em;
-        width: 1em;
-        height: 0.2em;
-        content: "";
-        background-color: #39a9d6;
-        transform: rotate(225deg);
-        -webkit-transform: rotate(225deg);
-        -moz-transform: rotate(225deg);
-        -ms-transform: rotate(225deg);
-        -o-transform: rotate(225deg);
-      }
-      &:hover {
-        opacity: 0.7;
-      }
+      top: 0.1em;
+      left: 0.5em;
+      width: 0.2em;
+      height: 1em;
+      content: "";
+      background-color: #39a9d6;
+      transform: rotate(45deg);
     }
+    &:after {
+      position: absolute;
+      top: 0.5em;
+      left: 0.1em;
+      width: 1em;
+      height: 0.2em;
+      content: "";
+      background-color: #39a9d6;
+      transform: rotate(225deg);
+    }
+    &:hover {
+      opacity: 0.7;
+    }
+  }
+  &__wrap {
+    width: 100%;
+    height: 100%;
+    max-height: 500px;
+    background-color: #fff;
+    overflow: scroll;
+    padding: 10px 10px 12px;
+    border-radius: 6px;
     &__title {
       display: flex;
       justify-content: center;
@@ -91,6 +101,15 @@
   }
 }
 
+@keyframes fadein {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
 .details {
   li {
     border-bottom: 1px solid #bbb;
@@ -109,6 +128,19 @@
       dd {
         padding: 6px 0 6px 8px;
       }
+    }
+  }
+  .description {
+    font-size: 16px;
+    dt {
+      background-color: #dadbdd;
+      padding: 6px 0;
+      text-align: center;
+      margin-top: 20px;
+    }
+    dd {
+      font-size: 14px;
+      padding: 6px 0 6px 8px;
     }
   }
 }

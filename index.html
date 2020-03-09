@@ -11,60 +11,71 @@
   </head>
   <body>
     <div class="wrapper" id="poke-app">
-      <div class="modal" v-if="showModal" @close="showModel = false">
-        <div class="modal__wrap">
-          <div class="modal__wrap__title">
-            <p>図鑑No.{{number(selectNumber.id)}}</p>
-            <h2>{{selectNumber.name}}</h2>
+      <div v-show="loading" class="loader"></div>
+      <div class="overlay" v-if="showModal" @close="showModel = false" v-cloak>
+        <div class="modal">
+          <div class="modal--close" @click="showModal = false"></div>
+          <div class="modal__wrap">
+            <div class="modal__wrap__title">
+              <p>図鑑No.{{number(selectNumber.id)}}</p>
+              <h2>{{selectNumber.name}}</h2>
+            </div>
+            <div class="modal__wrap__content">
+              <img
+                :src="`${imgUrl}${number(selectNumber.id)}.png`"
+                :alt="selectNumber.name"
+              />
+              <div class="details">
+                <ul>
+                  <li>
+                    <dl>
+                      <dt>分類</dt>
+                      <dd>{{selectNumber.classification}}</dd>
+                    </dl>
+                  </li>
+                  <li>
+                    <dl>
+                      <dt>高さ</dt>
+                      <dd>{{selectNumber.height}}</dd>
+                    </dl>
+                  </li>
+                  <li>
+                    <dl>
+                      <dt>重さ</dt>
+                      <dd>{{selectNumber.weight}}</dd>
+                    </dl>
+                  </li>
+                </ul>
+                <dl class="description">
+                  <dt>図鑑説明</dt>
+                  <dd>ここにポケモンの説明を載せる予定です。ここにポケモンの説明を載せる予定です。ここにポケモンの説明を載せる予定です。ここにポケモンの説明を載せる予定です。ここにポケモンの説明を載せる予定です。</dd>
+                </p>
+              </div>
+            </div>
           </div>
-          <div class="modal__wrap__content">
-            <img
-              :src="`${imgUrl}${number(selectNumber.id)}.png`"
-              :alt="selectNumber.name"
-            />
-            <ul class="details">
-              <li>
-                <dl>
-                  <dt>分類</dt>
-                  <dd>{{selectNumber.classification}}</dd>
-                </dl>
-              </li>
-              <li>
-                <dl>
-                  <dt>高さ</dt>
-                  <dd>{{selectNumber.height}}</dd>
-                </dl>
-              </li>
-              <li>
-                <dl>
-                  <dt>重さ</dt>
-                  <dd>{{selectNumber.weight}}</dd>
-                </dl>
-              </li>
-            </ul>
-          </div>
-          <div class="modal__wrap--close" @click="showModal = false"></div>
         </div>
       </div>
-      <h1>Pokedex</h1>
-      <ul class="list">
-        <li
-          class="list__item"
-          @click="showModal = true; select(id)"
-          v-for="(list,id) in pokeList"
-          :key="id"
-        >
-          <img :src="`${imgUrl}${number(list.id)}.png`" :alt="list.name" />
-          <p>図鑑No.{{number(list.id)}}</p>
-          <h3>{{ list.name }}</h3>
-        </li>
-      </ul>
+      <section class="slow" v-show="!loading">
+        <h1>Pokedex</h1>
+        <ul class="list">
+          <li
+            class="list__item"
+            @click="showModal = true; select(id)"
+            v-for="(list,id) in pokeList"
+            :key="id"
+          >
+            <img :src="`${imgUrl}${number(list.id)}.png`" :alt="list.name" />
+            <p>図鑑No.{{number(list.id)}}</p>
+            <h3>{{ list.name }}</h3>
+          </li>
+        </ul>
+      </section>
     </div>
     <script>
       new Vue({
         el: "#poke-app",
         data: {
-          keyword: "",
+          loading: true,
           showModal: false,
           pokeList: [],
           selectNumber: "",
@@ -84,7 +95,10 @@
             .get(
               "https://raw.githubusercontent.com/ryosuke-imae/pokemon/master/pokemon.json"
             )
-            .then(response => (this.pokeList = response.data));
+            .then(response => {
+              this.pokeList = response.data;
+              this.loading = false;
+            });
         }
       });
     </script>
